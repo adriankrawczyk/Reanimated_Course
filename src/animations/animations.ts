@@ -2,17 +2,17 @@ import { css } from 'react-native-reanimated'
 
 // Raw keyframes
 const KEYFRAMES = {
-  rotateScale: {
-    from: { opacity: 0, transform: [{ scale: 1 }, { rotate: '0deg' }] },
-    to: {
-      opacity: 1,
-      borderRadius: 100,
-      transform: [{ scale: 2 }, { rotate: '360deg' }],
-    },
+  rotateCW: {
+    from: { transform: [{ rotate: '0deg' }] },
+    to: { transform: [{ rotate: '360deg' }] },
   },
-  rotateAxis: {
-    from: { transform: [{ rotateX: '0deg' }, { rotateY: '0deg' }] },
-    to: { transform: [{ rotateX: '360deg' }, { rotateY: '360deg' }] },
+  rotateCCW: {
+    from: { transform: [{ rotate: '0deg' }] },
+    to: { transform: [{ rotate: '-360deg' }] },
+  },
+  parallax: {
+    from: { transform: [{ translateY: 0 }] },
+    to: { transform: [{ translateY: -1000 }] },
   },
 }
 
@@ -22,19 +22,27 @@ const dynamicPresets = Object.fromEntries(
 ) as { [K in keyof typeof KEYFRAMES]: { animationName: (typeof KEYFRAMES)[K] } }
 
 const animate = css.create({
-  base: { animationDuration: '1s', animationFillMode: 'both' },
-  verySlow: { animationDuration: '10s' },
+  both: { animationFillMode: 'both' },
   infinite: { animationIterationCount: 'infinite' },
   alternate: { animationDirection: 'alternate' },
   linear: { animationTimingFunction: 'linear' },
   ...dynamicPresets,
 })
 
-const { base, rotateScale, rotateAxis, verySlow, infinite, alternate, linear } = animate
+const duration = (s: number) => ({
+  animationDuration: `${s}s`,
+})
+
+const { both, infinite, alternate, linear, rotateCW, rotateCCW, parallax } = animate
 
 // Nice animation compositions
 export const compositions = {
-  heroBackground: [base, rotateScale, verySlow, infinite, alternate, linear],
-  cardEntrance: [base, rotateScale],
-  spin: [base, rotateAxis, verySlow, infinite, alternate, linear],
+  spin: (durationS: number, dir: 1 | -1) => [
+    both,
+    dir > 0 ? rotateCW : rotateCCW,
+    duration(durationS),
+    infinite,
+    linear,
+  ],
+  stars: [both, parallax, infinite, alternate, linear],
 }

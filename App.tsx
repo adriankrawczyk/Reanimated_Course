@@ -11,8 +11,8 @@ export default function App() {
   return (
     <View style={ui.container}>
       <StarField />
-      <Sun />
       <Planets />
+      <Sun />
     </View>
   )
 }
@@ -23,5 +23,6 @@ const ui = css.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.space,
+    overflow: 'visible',
   },
 })

@@ -3,11 +3,13 @@ export const SUN_SIZE = 70
 // STARS
 export const STAR_SIZE = 2
 export const STAR_SIZE_VARIANCE = 2
-export const STAR_COUNT = 35
+export const STAR_COUNT = 100
 // PLANETS
 export const PLANET_SIZE = 40
 export const PLANET_SIZE_VARIANCE = 20
 export const PLANET_COUNT = 3
+export const PLANET_ROTATION_DURATION_MIN = 5
+export const PLANET_ROTATION_DURATION_MAX = 20
 // BORDER
 export const DARKEN_AMOUNT = 0.4
 export const BORDER_WIDTH = 4
