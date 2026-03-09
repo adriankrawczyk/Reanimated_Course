@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
+import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native'
-import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 const SIZE = 100;
 
 export default function App() { 
 
-  const progress = useSharedValue(1);
+  const progress = useSharedValue(0);
 
   const reanimatedStyle = useAnimatedStyle(() => {
     return {
@@ -15,6 +16,10 @@ export default function App() {
       width: SIZE,
       backgroundColor: 'blue',
     };
+  }, []);
+
+  useEffect(() => {
+    progress.value = withTiming(1, { duration: 1000 });
   }, []);
 
   return (  
