@@ -7,4 +7,5 @@ export interface CelestialBody {
   y: number
   backgroundColor: string
   style?: StyleProp<ViewStyle>
+  animation?: StyleProp<ViewStyle & Record<string, unknown>>
 }

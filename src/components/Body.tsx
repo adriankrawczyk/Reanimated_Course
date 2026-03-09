@@ -4,7 +4,14 @@ import { CelestialBody } from '../types/types'
 import { darken } from '../utils/colorUtils'
 import { BORDER_WIDTH, DARKEN_AMOUNT, MIN_BORDER_WIDTH } from '../contstants/constants'
 
-export const Body = ({ size, x, y, backgroundColor, style }: Partial<CelestialBody>) => {
+export const Body = ({
+  size,
+  x,
+  y,
+  backgroundColor,
+  style,
+  animation,
+}: Partial<CelestialBody>) => {
   const bodySize = size ?? 0
   const bgColor = backgroundColor ?? 'white'
   const thiccBorderColor = darken(bgColor, DARKEN_AMOUNT)
@@ -23,6 +30,7 @@ export const Body = ({ size, x, y, backgroundColor, style }: Partial<CelestialBo
           borderColor: thiccBorderColor,
         },
         style,
+        animation,
       ]}
     />
   )
