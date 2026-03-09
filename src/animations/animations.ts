@@ -17,7 +17,7 @@ const KEYFRAMES = {
 /**
  * 2. UTILITIES & PRESETS
  */
-// Magic to fix TS errors
+// Translate to animationName and some magic to fix TS errors
 const dynamicPresets = Object.fromEntries(
   Object.entries(KEYFRAMES).map(([key, value]) => [key, { animationName: value }]),
 ) as { [K in keyof typeof KEYFRAMES]: { animationName: (typeof KEYFRAMES)[K] } }
@@ -35,7 +35,7 @@ const animate = css.create({
 })
 
 /**
- * 3. DESTRUCTURING
+ * 3. DESTRUCTURING & EXPORTING COMPOSITIONS
  */
 const { base, rotateScale, verySlow, infinite, alternate, linear } = animate
 
