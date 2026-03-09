@@ -15,6 +15,7 @@ export const Body = ({
   const bodySize = size ?? 0
   const bgColor = backgroundColor ?? 'white'
   const thiccBorderColor = darken(bgColor, DARKEN_AMOUNT)
+
   return (
     <Animated.View
       style={[
