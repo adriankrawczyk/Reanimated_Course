@@ -1,47 +1,29 @@
-import { StatusBar } from 'expo-status-bar'
-import { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native'
-import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming, withRepeat, SharedValue } from 'react-native-reanimated'
+import React from 'react'
+import { View } from 'react-native'
+import Animated, { css } from 'react-native-reanimated'
 
-const SIZE = 100;
+import { compositions } from './src/animations/animations'
 
-const handleRotation = (progress: SharedValue<number>) => {
-  'worklet';
-  return `${progress.value * 2 * Math.PI}rad`;
-};
+const SIZE = 200
 
-export default function App() { 
-
-  const progress = useSharedValue(0);
-  const scale = useSharedValue(1);
-
-  const reanimatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: progress.value,
-      borderRadius: progress.value * SIZE / 2,
-      height: SIZE,
-      width: SIZE,
-      backgroundColor: 'blue',
-      transform: [{ scale: scale.value, }, {rotate: handleRotation(progress) }]
-    }; 
-  }, []);
-
-  useEffect(() => {
-    progress.value = withRepeat(withSpring(1, { duration: 1000 }), -1, true);
-    scale.value = withRepeat(withSpring(2, { duration: 1000 }), -1, true);
-  }, []);
-
-  return (  
-    <View style={styles.container}>
-      <Animated.View style={reanimatedStyle} />
+export default function App() {
+  return (
+    <View style={ui.container}>
+      <Animated.View style={[ui.box, compositions.heroBackground]} />
     </View>
   )
 }
 
-const styles = StyleSheet.create({
+const ui = css.create({
+  box: {
+    height: SIZE,
+    width: SIZE,
+    backgroundColor: 'blue',
+  },
   container: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
 })
