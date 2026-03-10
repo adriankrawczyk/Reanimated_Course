@@ -17,7 +17,7 @@ export const PLANET_ROTATION_DURATION_MAX = 20
 export const MIN_R = 1.5 * SUN_SIZE
 export const MAX_R = 2 * SUN_SIZE
 export const MIN_SPEED = 0.1
-export const MAX_SPEED = 1.5
+export const MAX_SPEED = 1.25
 // BORDER
 export const DARKEN_AMOUNT = 0.4
 export const BORDER_WIDTH = 4
