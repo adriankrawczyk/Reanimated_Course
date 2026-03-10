@@ -14,7 +14,7 @@ import {
   SUN_SIZE,
   MIN_R,
   MAX_R,
-} from '../../contstants/constants'
+} from '../../constants/constants'
 import { useAppDimensions } from '../../AppContext'
 import { darken } from '../colorUtils'
 import { PlanetBody, StarBody } from '../../types/types'

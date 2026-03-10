@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { css } from 'react-native-reanimated'
-import { COLORS } from './src/contstants/colors'
+import { COLORS } from './src/constants/colors'
 
 import { StarField } from './src/components/StarField'
 import { Planets } from './src/components/Planets'

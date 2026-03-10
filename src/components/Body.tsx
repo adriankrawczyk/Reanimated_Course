@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import Animated, { css } from 'react-native-reanimated'
 import { CelestialBody } from '../types/types'
 import { darken } from '../utils/colorUtils'
-import { BORDER_WIDTH, DARKEN_AMOUNT, MIN_BORDER_WIDTH } from '../contstants/constants'
+import { BORDER_WIDTH, DARKEN_AMOUNT, MIN_BORDER_WIDTH } from '../constants/constants'
 
 export const Body = ({
   size,

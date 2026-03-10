@@ -1,5 +1,5 @@
 import Animated, { css } from 'react-native-reanimated'
-import { cssCompositions } from '../animations/css/compositions'
+import { compositions } from '../animations/css/compositions'
 import { PlanetBody } from '../types/types'
 import { Body } from './Body'
 
@@ -17,8 +17,8 @@ const Orbit = ({ planet, orbitAnimation, children }: OrbitProps) => (
   </Animated.View>
 )
 
-export default function Planet(planet: PlanetBody) {
-  const orbitAnimation = cssCompositions.orbit(planet.r, planet.rotationDir)
+export function Planet(planet: PlanetBody) {
+  const orbitAnimation = compositions.orbit(planet.r, planet.rotationDir)
 
   return (
     <Orbit planet={planet} orbitAnimation={orbitAnimation}>
@@ -26,7 +26,7 @@ export default function Planet(planet: PlanetBody) {
         {...planet}
         x={-planet.size / 2}
         y={-planet.size / 2}
-        animation={cssCompositions.spin(planet.rotationDuration, planet.rotationDir)}
+        animation={compositions.spin(planet.rotationDuration, planet.rotationDir)}
       />
     </Orbit>
   )
