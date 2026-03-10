@@ -5,7 +5,7 @@ import { Body } from './Body'
 
 interface OrbitProps {
   planet: PlanetBody
-  orbitAnimation: Record<string, unknown>[]
+  orbitAnimation: ReturnType<typeof compositions.orbit>
   children?: React.ReactNode
 }
 

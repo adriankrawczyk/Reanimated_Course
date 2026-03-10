@@ -1,11 +1,6 @@
+import { GenerateRandomArrayOptions } from '../../types/types'
 import { randomColor } from '../colorUtils'
 import { getRandomSize, getRandomInBounds } from '../randomUtils'
-
-export interface GenerateRandomArrayOptions {
-  backgroundColor?: string
-  xOverflow?: number
-  yOverflow?: number
-}
 
 export const generateRandomArray = (
   count: number,

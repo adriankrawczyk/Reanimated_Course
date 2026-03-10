@@ -20,3 +20,9 @@ export interface PlanetBody extends CelestialBody {
   rotationDir: 1 | -1
   r: number
 }
+
+export interface GenerateRandomArrayOptions {
+  backgroundColor?: string
+  xOverflow?: number
+  yOverflow?: number
+}
