@@ -14,6 +14,8 @@ import {
   SUN_SIZE,
   MIN_R,
   MAX_R,
+  MIN_SPEED,
+  MAX_SPEED,
 } from '../../constants/constants'
 import { useAppDimensions } from '../../AppContext'
 import { darken } from '../colorUtils'
@@ -66,6 +68,7 @@ export const usePlanetsArray = (): PlanetBody[] => {
         x: DEVICE_WIDTH / 2 - SUN_SIZE / 4,
         y: DEVICE_HEIGHT / 2 - SUN_SIZE / 4,
         r: randomNumber(MIN_R, MAX_R),
+        speed: randomNumber(MIN_SPEED, MAX_SPEED),
         rotationDuration: Math.ceil(
           getRandomDuration(PLANET_ROTATION_DURATION_MIN, PLANET_ROTATION_DURATION_MAX),
         ),

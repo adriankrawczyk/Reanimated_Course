@@ -16,6 +16,7 @@ export interface StarBody extends CelestialBody {
 }
 
 export interface PlanetBody extends CelestialBody {
+  speed: number
   rotationDuration: number
   rotationDir: 1 | -1
   r: number

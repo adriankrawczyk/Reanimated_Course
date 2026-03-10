@@ -5,7 +5,7 @@ import { Body } from './Body'
 
 interface OrbitProps {
   planet: PlanetBody
-  orbitAnimation: ReturnType<typeof compositions.orbit>
+  orbitAnimation: Record<string, unknown>[]
   children?: React.ReactNode
 }
 
@@ -18,7 +18,8 @@ const Orbit = ({ planet, orbitAnimation, children }: OrbitProps) => (
 )
 
 export function Planet(planet: PlanetBody) {
-  const orbitAnimation = compositions.orbit(planet.r, planet.rotationDir)
+  const { speed, r, rotationDir } = planet
+  const orbitAnimation = compositions.orbit(speed, r, rotationDir)
 
   return (
     <Orbit planet={planet} orbitAnimation={orbitAnimation}>

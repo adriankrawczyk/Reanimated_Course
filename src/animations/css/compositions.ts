@@ -1,7 +1,7 @@
 import { animate } from './builder'
 import { duration } from './utils'
 import { orbitKeyframes } from './keyframes'
-const { infinite, linear, rotateCW, rotateCCW, slow } = animate
+const { infinite, linear, rotateCW, rotateCCW } = animate
 
 // Nice animation compositions
 export const compositions = {
@@ -11,9 +11,9 @@ export const compositions = {
     infinite,
     linear,
   ],
-  orbit: (r: number, dir: 1 | -1) => [
+  orbit: (speed: number, r: number, dir: 1 | -1) => [
     { animationName: orbitKeyframes(r, dir) },
-    slow,
+    duration(10 * speed),
     infinite,
     linear,
   ],
