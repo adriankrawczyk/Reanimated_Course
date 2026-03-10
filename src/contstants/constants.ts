@@ -4,6 +4,9 @@ export const SUN_SIZE = 70
 export const STAR_SIZE = 2
 export const STAR_SIZE_VARIANCE = 2
 export const STAR_COUNT = 100
+export const STAR_VERTICAL_OVERFLOW_FACTOR = 1
+export const STAR_PARALLAX_DURATION_MIN = 75
+export const STAR_PARALLAX_DURATION_MAX = 75
 // PLANETS
 export const PLANET_SIZE = 40
 export const PLANET_SIZE_VARIANCE = 20

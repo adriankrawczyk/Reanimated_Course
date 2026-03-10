@@ -1,11 +1,11 @@
 import React from 'react'
-import { starsArray } from '../utils/utils'
-import { Body } from './Body'
+import { starsArray } from '../utils/arrays/celestialBodies'
+import { Star } from './Star'
 
 export const StarField = () => (
   <>
     {starsArray.map((star) => (
-      <Body key={star.id} {...star} />
+      <Star key={star.id} star={star} />
     ))}
   </>
 )

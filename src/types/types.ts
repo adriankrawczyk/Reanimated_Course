@@ -11,6 +11,10 @@ export interface CelestialBody {
   animation?: StyleProp<ViewStyle & Record<string, unknown>>
 }
 
+export interface Star extends CelestialBody {
+  parallaxDuration: number
+}
+
 export interface Planet extends CelestialBody {
   rotationDuration: number
   rotationDir: 1 | -1

@@ -1,7 +1,7 @@
 import React from 'react'
-import { planetsArray } from '../utils/utils'
+import { planetsArray } from '../utils/arrays/celestialBodies'
 import { Body } from './Body'
-import { compositions } from '../animations/animations'
+import { compositions } from '../animations/index'
 
 export const Planets = () => (
   <>
