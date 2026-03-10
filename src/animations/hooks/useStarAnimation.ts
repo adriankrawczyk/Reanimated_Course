@@ -8,23 +8,24 @@ import {
 } from 'react-native-reanimated'
 import { StarBody } from '../../types/types'
 import { useAppDimensions } from '../../AppContext'
+import { STAR_TRAVEL_DISTANCE_FACTOR } from '../../constants/constants'
 
-export const useStarAnimation = (star: StarBody, travelDistance?: number) => {
+export const useStarAnimation = (star: StarBody) => {
   const { DEVICE_HEIGHT } = useAppDimensions()
+  const travelDistance = DEVICE_HEIGHT * STAR_TRAVEL_DISTANCE_FACTOR
 
-  const resolvedTravelDistance = travelDistance ?? DEVICE_HEIGHT * 2
-  const translateY = useSharedValue(resolvedTravelDistance)
+  const translateY = useSharedValue(travelDistance)
 
   useEffect(() => {
     translateY.value = withRepeat(
-      withTiming(-resolvedTravelDistance, {
+      withTiming(-travelDistance, {
         duration: star.parallaxDuration * 1000,
         easing: Easing.linear,
       }),
       -1,
       false,
     )
-  }, [resolvedTravelDistance, star.parallaxDuration, translateY])
+  }, [travelDistance, star.parallaxDuration, translateY])
 
   const parallaxStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
