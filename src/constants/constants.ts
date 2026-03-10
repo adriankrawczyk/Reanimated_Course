@@ -11,11 +11,11 @@ export const STAR_PARALLAX_DURATION_MAX = 75 // The same looks the best :v
 // PLANETS
 export const PLANET_SIZE = 40
 export const PLANET_SIZE_VARIANCE = 20
-export const PLANET_COUNT = 2
+export const PLANET_COUNT = 3
 export const PLANET_ROTATION_DURATION_MIN = 5
 export const PLANET_ROTATION_DURATION_MAX = 20
 export const MIN_R = 1.5 * SUN_SIZE
-export const MAX_R = 2 * SUN_SIZE
+export const MAX_R = 3 * SUN_SIZE
 export const MIN_SPEED = 0.1
 export const MAX_SPEED = 1.25
 // BORDER

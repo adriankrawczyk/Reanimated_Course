@@ -25,8 +25,8 @@ const Orbit = ({ planet, orbitAnimation, children }: OrbitProps) => {
 }
 
 export function Planet(planet: PlanetBody) {
-  const { rotationDuration, rotationDir, r, speed } = planet
-  const orbitAnimation = useOrbitAnimation(r, speed)
+  const { rotationDuration, rotationDir, r, speed, axisA, axisB } = planet
+  const orbitAnimation = useOrbitAnimation(rotationDir, r, speed, axisA, axisB)
 
   return (
     <Orbit planet={planet} orbitAnimation={orbitAnimation}>

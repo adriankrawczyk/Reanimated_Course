@@ -11,7 +11,6 @@ import {
   PLANET_SIZE_VARIANCE,
   PLANET_ROTATION_DURATION_MIN,
   PLANET_ROTATION_DURATION_MAX,
-  SUN_SIZE,
   MIN_R,
   MAX_R,
   MIN_SPEED,
@@ -21,7 +20,12 @@ import { useAppDimensions } from '../../AppContext'
 import { darken } from '../colorUtils'
 import { PlanetBody, StarBody } from '../../types/types'
 import { generateRandomArray } from './arrayGenerators'
-import { getRandomDirection, getRandomDuration, randomNumber } from '../randomUtils'
+import {
+  generateTilsAxis,
+  getRandomDirection,
+  getRandomDuration,
+  randomNumber,
+} from '../randomUtils'
 
 export const useStarsArray = (): StarBody[] => {
   const { DEVICE_HEIGHT, DEVICE_WIDTH } = useAppDimensions()
@@ -65,10 +69,12 @@ export const usePlanetsArray = (): PlanetBody[] => {
       ).map((planet) => ({
         ...planet,
         // Works ?
-        x: DEVICE_WIDTH / 2 - SUN_SIZE / 4,
-        y: DEVICE_HEIGHT / 2 + SUN_SIZE / 4,
+        x: DEVICE_WIDTH / 2,
+        y: DEVICE_HEIGHT / 2,
         r: randomNumber(MIN_R, MAX_R),
         speed: randomNumber(MIN_SPEED, MAX_SPEED),
+        axisA: generateTilsAxis(),
+        axisB: generateTilsAxis(),
         rotationDuration: Math.ceil(
           getRandomDuration(PLANET_ROTATION_DURATION_MIN, PLANET_ROTATION_DURATION_MAX),
         ),

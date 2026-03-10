@@ -7,13 +7,18 @@ import {
   Easing,
 } from 'react-native-reanimated'
 import { BASE_Z_INDEX } from '../../constants/constants'
+import { Point3D } from '../../types/types'
 
 const BASE_DURATION = 3000
 const BASE_PERSPECTIVE = 1000
-const TILT_FACTOR = 0.3
-const Z_FACTOR = 4
 
-export const useOrbitAnimation = (r: number, speed: number) => {
+export const useOrbitAnimation = (
+  rotationDir: number,
+  r: number,
+  speed: number,
+  axisA: Point3D,
+  axisB: Point3D,
+) => {
   const progress = useSharedValue(0)
 
   useEffect(() => {
@@ -28,22 +33,22 @@ export const useOrbitAnimation = (r: number, speed: number) => {
   }, [speed])
 
   const orbitStyle = useAnimatedStyle(() => {
-    const angle = progress.value * Math.PI * 2
+    const angle = progress.value * Math.PI * 2 * rotationDir
+    const cos = Math.cos(angle)
+    const sin = Math.sin(angle)
 
-    const x = r * Math.cos(angle)
-    const y = r * Math.sin(angle) * TILT_FACTOR
-    const z = r * Math.sin(angle) * Z_FACTOR
+    // Linear combination of the two axes allows any 3D orientation
+    const x = r * (axisA.x * cos + axisB.x * sin)
+    const y = r * (axisA.y * cos + axisB.y * sin)
+    const z = r * (axisA.z * cos + axisB.z * sin)
 
     const scale = BASE_PERSPECTIVE / (BASE_PERSPECTIVE - z)
 
     return {
       zIndex: Math.round(BASE_Z_INDEX + z),
-
       transform: [{ translateX: x }, { translateY: y }, { scale }],
     }
   })
 
-  return {
-    orbitStyle,
-  }
+  return { orbitStyle }
 }
