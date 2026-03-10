@@ -1,10 +1,12 @@
-import { EasingFunction } from 'react-native'
-
-export interface TimingLoopConfig {
+export interface WorkletLoopConfig {
   from: number
-  to: number
-  durationS: number
-  easing?: EasingFunction
-  iterations?: number
-  reverse?: boolean
+  animation: number
+}
+
+export interface WorkletRecipe {
+  translateX?: WorkletLoopConfig
+  translateY?: WorkletLoopConfig
+  rotate?: WorkletLoopConfig
+  scale?: WorkletLoopConfig
+  opacity?: WorkletLoopConfig
 }

@@ -1,9 +1,9 @@
 import { cancelAnimation, type SharedValue } from 'react-native-reanimated'
-import type { buildWorklet } from './builder'
+import { WorkletLoopConfig } from '../../types/animations'
 
 export const runLoopAnimation = (
   sharedValue: SharedValue<number>,
-  config: ReturnType<typeof buildWorklet>,
+  config: WorkletLoopConfig,
 ) => {
   sharedValue.value = config.from
   sharedValue.value = config.animation

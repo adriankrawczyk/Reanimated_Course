@@ -1,4 +1,5 @@
 import { StyleProp, ViewStyle } from 'react-native'
+import { WorkletRecipe } from './animations'
 
 export interface CelestialBody {
   id: string
@@ -9,6 +10,7 @@ export interface CelestialBody {
   gradientColors?: [string, string]
   style?: StyleProp<ViewStyle>
   animation?: StyleProp<ViewStyle & Record<string, unknown>>
+  workletAnimation?: WorkletRecipe
 }
 
 export interface Star extends CelestialBody {
