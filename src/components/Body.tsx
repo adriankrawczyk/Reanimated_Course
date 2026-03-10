@@ -4,7 +4,6 @@ import Animated, { css } from 'react-native-reanimated'
 import { CelestialBody } from '../types/types'
 import { darken } from '../utils/colorUtils'
 import { BORDER_WIDTH, DARKEN_AMOUNT, MIN_BORDER_WIDTH } from '../contstants/constants'
-import { useWorklet } from '../hooks/useWorklet'
 
 export const Body = ({
   size,
@@ -14,13 +13,11 @@ export const Body = ({
   gradientColors,
   style,
   animation,
-  workletAnimation,
 }: Partial<CelestialBody>) => {
   const bodySize = size ?? 0
   const bgColor = backgroundColor ?? 'white'
   const thiccBorderColor = darken(bgColor, DARKEN_AMOUNT)
   const hasGradient = gradientColors && gradientColors.length === 2
-  const workletStyle = useWorklet(workletAnimation)
 
   return (
     <Animated.View
@@ -39,7 +36,6 @@ export const Body = ({
         },
         style,
         animation,
-        workletStyle,
       ]}
     >
       {hasGradient && (
@@ -51,6 +47,7 @@ export const Body = ({
     </Animated.View>
   )
 }
+
 const ui = css.create({
   baseBody: {
     position: 'absolute',

@@ -10,14 +10,15 @@ import {
   PLANET_SIZE_VARIANCE,
   PLANET_ROTATION_DURATION_MIN,
   PLANET_ROTATION_DURATION_MAX,
+  SUN_SIZE,
 } from '../../contstants/constants'
 import { darken } from '../colorUtils'
-import { Planet, Star } from '../../types/types'
-import { DEVICE_HEIGHT } from '../device'
+import { PlanetBody, StarBody } from '../../types/types'
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../device'
 import { generateRandomArray } from './arrayGenerators'
-import { getRandomDirection, getRandomDuration } from '../randomUtils'
+import { getRandomDirection, getRandomDuration, randomNumber } from '../randomUtils'
 
-export const starsArray: Star[] = generateRandomArray(
+export const starsArray: StarBody[] = generateRandomArray(
   STAR_COUNT,
   STAR_SIZE,
   STAR_SIZE_VARIANCE,
@@ -32,12 +33,15 @@ export const starsArray: Star[] = generateRandomArray(
   ),
 }))
 
-export const planetsArray: Planet[] = generateRandomArray(
+export const planetsArray: PlanetBody[] = generateRandomArray(
   PLANET_COUNT,
   PLANET_SIZE,
   PLANET_SIZE_VARIANCE,
 ).map((planet) => ({
   ...planet,
+  x: DEVICE_WIDTH / 2 - SUN_SIZE / 4,
+  y: DEVICE_HEIGHT / 2 - SUN_SIZE / 4,
+  r: randomNumber(SUN_SIZE * 1.5, SUN_SIZE * 3),
   rotationDuration: Math.ceil(
     getRandomDuration(PLANET_ROTATION_DURATION_MIN, PLANET_ROTATION_DURATION_MAX),
   ),

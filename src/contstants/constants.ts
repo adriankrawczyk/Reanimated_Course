@@ -6,11 +6,11 @@ export const STAR_SIZE_VARIANCE = 2
 export const STAR_COUNT = 200
 export const STAR_VERTICAL_OVERFLOW_FACTOR = 2
 export const STAR_PARALLAX_DURATION_MIN = 75
-export const STAR_PARALLAX_DURATION_MAX = 75
+export const STAR_PARALLAX_DURATION_MAX = 75 // The same looks the best :v
 // PLANETS
 export const PLANET_SIZE = 40
 export const PLANET_SIZE_VARIANCE = 20
-export const PLANET_COUNT = 3
+export const PLANET_COUNT = 2
 export const PLANET_ROTATION_DURATION_MIN = 5
 export const PLANET_ROTATION_DURATION_MAX = 20
 // BORDER
