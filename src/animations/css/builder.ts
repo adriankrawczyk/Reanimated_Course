@@ -11,5 +11,6 @@ export const animate = css.create({
   both: { animationFillMode: 'both' },
   infinite: { animationIterationCount: 'infinite' },
   linear: { animationTimingFunction: 'linear' },
+  slow: { animationDuration: '10s' },
   ...dynamicPresets,
 })

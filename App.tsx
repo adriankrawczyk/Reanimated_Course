@@ -6,14 +6,23 @@ import { COLORS } from './src/contstants/colors'
 import { StarField } from './src/components/StarField'
 import { Planets } from './src/components/Planets'
 import { Sun } from './src/components/Sun'
+import { AppDimensionsProvider } from './src/AppContext'
 
-export default function App() {
+function MainAppContent() {
   return (
     <View style={ui.container}>
       <StarField />
       <Planets />
       <Sun />
     </View>
+  )
+}
+
+export default function App() {
+  return (
+    <AppDimensionsProvider>
+      <MainAppContent />
+    </AppDimensionsProvider>
   )
 }
 

@@ -13,6 +13,8 @@ export const PLANET_SIZE_VARIANCE = 20
 export const PLANET_COUNT = 2
 export const PLANET_ROTATION_DURATION_MIN = 5
 export const PLANET_ROTATION_DURATION_MAX = 20
+export const MIN_R = 1.5 * SUN_SIZE
+export const MAX_R = 2 * SUN_SIZE
 // BORDER
 export const DARKEN_AMOUNT = 0.4
 export const BORDER_WIDTH = 4
