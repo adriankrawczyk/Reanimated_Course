@@ -66,7 +66,7 @@ export const usePlanetsArray = (): PlanetBody[] => {
         ...planet,
         // Works ?
         x: DEVICE_WIDTH / 2 - SUN_SIZE / 4,
-        y: DEVICE_HEIGHT / 2 - SUN_SIZE / 4,
+        y: DEVICE_HEIGHT / 2 + SUN_SIZE / 4,
         r: randomNumber(MIN_R, MAX_R),
         speed: randomNumber(MIN_SPEED, MAX_SPEED),
         rotationDuration: Math.ceil(

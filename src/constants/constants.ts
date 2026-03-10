@@ -22,3 +22,5 @@ export const MAX_SPEED = 1.25
 export const DARKEN_AMOUNT = 0.4
 export const BORDER_WIDTH = 4
 export const MIN_BORDER_WIDTH = 5
+// MISC
+export const BASE_Z_INDEX = 10000
