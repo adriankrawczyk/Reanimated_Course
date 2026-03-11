@@ -1,4 +1,5 @@
 import { StyleProp, ViewStyle } from 'react-native'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 export interface CelestialBody {
   id: string
@@ -35,3 +36,5 @@ export type Point3D = {
   y: number
   z: number
 }
+
+export type IconName = React.ComponentProps<typeof MaterialCommunityIcons>['name']
