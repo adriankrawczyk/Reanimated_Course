@@ -31,9 +31,12 @@ export interface GenerateRandomArrayOptions {
   yOverflow?: number
 }
 
-export type Point3D = {
+export interface Point {
   x: number
   y: number
+}
+
+export interface Point3D extends Point {
   z: number
 }
 

@@ -1,9 +1,8 @@
 import { View } from 'react-native'
-import { css } from 'react-native-reanimated'
 import { Planets } from '../components/Planets'
 import { StarField } from '../components/StarField'
 import { Sun } from '../components/Sun'
-import { COLORS } from '../constants/colors'
+import { ui } from '../styles/ui'
 
 export function Galaxy() {
   return (
@@ -14,12 +13,3 @@ export function Galaxy() {
     </View>
   )
 }
-const ui = css.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLORS.space,
-    overflow: 'visible',
-  },
-})

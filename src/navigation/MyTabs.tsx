@@ -3,6 +3,7 @@ import { Galaxy } from '../screens/GalaxyScreen'
 import { IconName } from '../types/types'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { CircleScreen } from '../screens/CircleScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -12,8 +13,8 @@ export function MyTabs() {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           const icons: Record<string, IconName> = {
-            Galaxy: 'star',
-            Test: 'test-tube',
+            Galaxy: 'star-outline',
+            Circle: 'circle-outline',
           }
           return (
             <MaterialCommunityIcons
@@ -35,8 +36,8 @@ export function MyTabs() {
         headerTintColor: 'white',
       })}
     >
+      <Tab.Screen name="Circle" component={CircleScreen} />
       <Tab.Screen name="Galaxy" component={Galaxy} />
-      <Tab.Screen name="Test" component={Galaxy} />
     </Tab.Navigator>
   )
 }
