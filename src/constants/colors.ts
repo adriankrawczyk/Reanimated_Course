@@ -6,4 +6,6 @@ export const COLORS = {
   earth: '#1E90FF',
   star: '#FFFFFF',
   charcoal: '#1a1a1a',
+  grayish: '#14142a',
+  green: '#32CD32',
 } as const

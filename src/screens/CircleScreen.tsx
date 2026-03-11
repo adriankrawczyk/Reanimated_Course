@@ -1,17 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { View } from 'react-native'
 import { ui } from '../styles/ui'
 import Svg, { Path } from 'react-native-svg'
 import { useEffect } from 'react'
 import Animated, {
-  Easing,
   useSharedValue,
   useAnimatedProps,
   withRepeat,
   withTiming,
   cancelAnimation,
 } from 'react-native-reanimated'
-import { COLORS } from '../constants/colors'
 
 const WIDTH = 300
 const HEIGHT = 300
