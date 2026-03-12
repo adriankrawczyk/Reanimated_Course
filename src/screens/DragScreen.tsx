@@ -71,20 +71,19 @@ const Ball = () => {
 
   // Acceleration
   const frameCallback = useFrameCallback((frameInfo) => {
-    if (!velocityX.value && !velocityY.value) return
+    if ((!velocityX.value && !velocityY.value) || !frameInfo.timeSincePreviousFrame)
+      return
 
-    if (frameInfo.timeSincePreviousFrame !== null) {
-      virtualX.value += velocityX.value
-      virtualY.value += velocityY.value
-      velocityX.value *= DECCELERATION
-      velocityY.value *= DECCELERATION
-      if (
-        Math.abs(velocityX.value) < STOP_THRESHOLD &&
-        Math.abs(velocityY.value) < STOP_THRESHOLD
-      ) {
-        velocityX.value = 0
-        velocityY.value = 0
-      }
+    virtualX.value += velocityX.value
+    virtualY.value += velocityY.value
+    velocityX.value *= DECCELERATION
+    velocityY.value *= DECCELERATION
+    if (
+      Math.abs(velocityX.value) < STOP_THRESHOLD &&
+      Math.abs(velocityY.value) < STOP_THRESHOLD
+    ) {
+      velocityX.value = 0
+      velocityY.value = 0
     }
   }, true)
 
