@@ -25,6 +25,8 @@ const MAX_X = (PLAYGROUND_WIDTH - BALL_SIZE) / 2
 const MAX_Y = (PLAYGROUND_HEIGHT - BALL_SIZE) / 2
 
 const SPEED = 0.003
+const DECCELERATION = 0.98
+const STOP_THRESHOLD = 0.1
 
 const getPositionInBounds = (value: number, maxRadius: number) => {
   'worklet'
@@ -74,9 +76,12 @@ const Ball = () => {
     if (frameInfo.timeSincePreviousFrame !== null) {
       virtualX.value += velocityX.value
       virtualY.value += velocityY.value
-      velocityX.value *= 0.98
-      velocityY.value *= 0.98
-      if (Math.abs(velocityX.value) < 0.1 && Math.abs(velocityY.value) < 0.1) {
+      velocityX.value *= DECCELERATION
+      velocityY.value *= DECCELERATION
+      if (
+        Math.abs(velocityX.value) < STOP_THRESHOLD &&
+        Math.abs(velocityY.value) < STOP_THRESHOLD
+      ) {
         velocityX.value = 0
         velocityY.value = 0
       }
