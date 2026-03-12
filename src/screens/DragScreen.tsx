@@ -8,6 +8,8 @@ import Animated, {
   useAnimatedStyle,
   withDecay,
   useDerivedValue,
+  useFrameCallback,
+  runOnJS,
 } from 'react-native-reanimated'
 import {
   Gesture,
@@ -22,7 +24,7 @@ const PLAYGROUND_HEIGHT = 400
 const MAX_X = (PLAYGROUND_WIDTH - BALL_SIZE) / 2
 const MAX_Y = (PLAYGROUND_HEIGHT - BALL_SIZE) / 2
 
-const SPEED = 0.3
+const SPEED = 0.003
 
 const getPositionInBounds = (value: number, maxRadius: number) => {
   'worklet'
@@ -62,6 +64,25 @@ const Ball = () => {
 
   const pressed = useSharedValue(false)
 
+  const velocityX = useSharedValue(0)
+  const velocityY = useSharedValue(0)
+
+  // Acceleration
+  const frameCallback = useFrameCallback((frameInfo) => {
+    if (!velocityX.value && !velocityY.value) return
+
+    if (frameInfo.timeSincePreviousFrame !== null) {
+      virtualX.value += velocityX.value
+      virtualY.value += velocityY.value
+      velocityX.value *= 0.98
+      velocityY.value *= 0.98
+      if (Math.abs(velocityX.value) < 0.1 && Math.abs(velocityY.value) < 0.1) {
+        velocityX.value = 0
+        velocityY.value = 0
+      }
+    }
+  }, true)
+
   const pan = Gesture.Pan()
     .onBegin(() => {
       pressed.value = true
@@ -80,10 +101,9 @@ const Ball = () => {
     })
     .onFinalize((event) => {
       pressed.value = false
-
       // Launch ball
-      virtualX.value = withDecay({ velocity: event.velocityX * SPEED })
-      virtualY.value = withDecay({ velocity: event.velocityY * SPEED })
+      velocityX.value = event.velocityX * SPEED
+      velocityY.value = event.velocityY * SPEED
     })
 
   const animatedStyle = useAnimatedStyle(() => ({
