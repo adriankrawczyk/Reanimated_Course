@@ -5,6 +5,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { CircleScreen } from '../screens/CircleScreen'
 import { DragScreen } from '../screens/DragScreen'
+import { ScrollScreen } from '../screens/ScrollScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -17,6 +18,7 @@ export function MyTabs() {
             Galaxy: 'star-outline',
             Circle: 'circle-outline',
             Drag: 'dots-horizontal',
+            Scroll: 'gesture-swipe',
           }
           return (
             <MaterialCommunityIcons
@@ -38,6 +40,7 @@ export function MyTabs() {
         headerTintColor: 'white',
       })}
     >
+      <Tab.Screen name="Scroll" component={ScrollScreen} />
       <Tab.Screen name="Drag" component={DragScreen} />
       <Tab.Screen name="Circle" component={CircleScreen} />
       <Tab.Screen name="Galaxy" component={Galaxy} />

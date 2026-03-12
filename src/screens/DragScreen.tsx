@@ -76,15 +76,8 @@ const Ball = () => {
 
     virtualX.value += velocityX.value
     virtualY.value += velocityY.value
-    velocityX.value *= DECCELERATION
-    velocityY.value *= DECCELERATION
-    if (
-      Math.abs(velocityX.value) < STOP_THRESHOLD &&
-      Math.abs(velocityY.value) < STOP_THRESHOLD
-    ) {
-      velocityX.value = 0
-      velocityY.value = 0
-    }
+    velocityX.value *= Math.abs(velocityX.value) < STOP_THRESHOLD ? 0 : DECCELERATION
+    velocityY.value *= Math.abs(velocityY.value) < STOP_THRESHOLD ? 0 : DECCELERATION
   }, true)
 
   const pan = Gesture.Pan()
