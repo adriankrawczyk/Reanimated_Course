@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
-import { VideoView, useVideoPlayer } from 'expo-video'
 import Animated, {
   useAnimatedReaction,
   useAnimatedSensor,
@@ -22,33 +21,7 @@ import {
 } from '../constants/scroll'
 import { useVideos } from '../hooks/useVideos'
 import { useScroll } from '../hooks/useScroll'
-
-const VideoItem = ({ video, isActive }: { video: Video; isActive: boolean }) => {
-  const videoSource = video.video_files?.[3]?.link || video.video_files?.[0]?.link || ''
-
-  const player = useVideoPlayer(videoSource, (p) => {
-    p.loop = true
-  })
-
-  useEffect(() => {
-    if (isActive) {
-      player.play()
-    } else {
-      player.pause()
-    }
-  }, [isActive, player])
-
-  return (
-    <View style={styles.square}>
-      <VideoView
-        nativeControls={false}
-        player={player}
-        style={styles.full}
-        contentFit="cover"
-      />
-    </View>
-  )
-}
+import { VideoItem } from '../components/VideoItem'
 
 export const ScrollScreen = () => {
   const { videos } = useVideos()
