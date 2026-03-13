@@ -8,4 +8,5 @@ export const COLORS = {
   charcoal: '#1a1a1a',
   grayish: '#14142a',
   green: '#32CD32',
+  gray: 'gray',
 } as const
