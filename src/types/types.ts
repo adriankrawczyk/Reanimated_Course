@@ -41,3 +41,6 @@ export interface Point3D extends Point {
 }
 
 export type IconName = React.ComponentProps<typeof MaterialCommunityIcons>['name']
+
+export type VideoFile = { link: string; width: number; height: number }
+export type Video = { id: number; video_files: VideoFile[] }

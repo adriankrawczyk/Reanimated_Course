@@ -1,85 +1,153 @@
+import React, { useEffect } from 'react'
 import { View } from 'react-native'
-import { ui } from '../styles/ui'
+import { VideoView, useVideoPlayer } from 'expo-video'
 import Animated, {
-  css,
+  useAnimatedReaction,
+  useAnimatedSensor,
+  SensorType,
   useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  interpolateColor,
+  useAnimatedRef,
+  scrollTo,
 } from 'react-native-reanimated'
-import { useState } from 'react'
+
+import { ui } from '../styles/ui'
 import { COLORS } from '../constants/colors'
+import { Video } from '../types/types'
+import { styles } from '../styles/scroll'
+import {
+  PAGE_HEIGHT,
+  PAGES_CYCLE_LENGTH,
+  SCROLL_COOLDOWN,
+  TILT_SENSITIVITY,
+} from '../constants/scroll'
+import { useVideos } from '../hooks/useVideos'
+import { useScroll } from '../hooks/useScroll'
 
-const PAGE_ARRAY = ['red', 'green', 'blue']
-const BG_COLORS = ['#ff8888', '#88ff88', '#8888ff']
-const PAGE_WIDTH = 300
-const INPUT_RANGE = PAGE_ARRAY.map((_, i) => i * PAGE_WIDTH)
+const VideoItem = ({ video, isActive }: { video: Video; isActive: boolean }) => {
+  const videoSource = video.video_files?.[3]?.link || video.video_files?.[0]?.link || ''
 
-export function ScrollScreen() {
-  const [activePage, setActivePage] = useState(0)
-  const scrollX = useSharedValue(0)
-
-  const scrollHandler = useAnimatedScrollHandler((e) => {
-    scrollX.value = e.contentOffset.x
+  const player = useVideoPlayer(videoSource, (p) => {
+    p.loop = true
   })
 
-  const animatedBg = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(scrollX.value, INPUT_RANGE, BG_COLORS),
-  }))
+  useEffect(() => {
+    if (isActive) {
+      player.play()
+    } else {
+      player.pause()
+    }
+  }, [isActive, player])
 
   return (
-    <Animated.View style={[ui.container, animatedBg]}>
+    <View style={styles.square}>
+      <VideoView
+        nativeControls={false}
+        player={player}
+        style={styles.full}
+        contentFit="cover"
+      />
+    </View>
+  )
+}
+
+export const ScrollScreen = () => {
+  const { videos } = useVideos()
+  const { activePage, onMomentumScrollEnd, scrollHandler, animatedBg } = useScroll(videos)
+
+  const listRef = useAnimatedRef<Animated.FlatList<Video>>()
+
+  const animatedSensor = useAnimatedSensor(SensorType.ACCELEROMETER, {
+    interval: 16,
+  })
+
+  const lastTiltTime = useSharedValue(0)
+  const pageSV = useSharedValue(0)
+  const baseY = useSharedValue(0)
+  const isInitialized = useSharedValue(false)
+  const videoCount = videos.length
+
+  useEffect(() => {
+    pageSV.value = activePage
+  }, [activePage])
+
+  useAnimatedReaction(
+    () => animatedSensor.sensor.value,
+    (sensor) => {
+      const y = sensor.y
+      const now = Date.now()
+
+      if (!isInitialized.value) {
+        baseY.value = y
+        isInitialized.value = true
+        return
+      }
+
+      // Resting angle
+      baseY.value = baseY.value * 0.95 + y * 0.05
+      const delta = y - baseY.value
+
+      if (now - lastTiltTime.value < SCROLL_COOLDOWN) {
+        baseY.value = y
+        return
+      }
+
+      // Tilt down
+      if (delta < -TILT_SENSITIVITY && pageSV.value < videoCount - 1) {
+        lastTiltTime.value = now
+        baseY.value = y
+        const nextOffset = (pageSV.value + 1) * PAGE_HEIGHT
+        scrollTo(listRef, 0, nextOffset, true)
+      }
+
+      // Tilt up
+      if (delta > TILT_SENSITIVITY && pageSV.value > 0) {
+        lastTiltTime.value = now
+        baseY.value = y
+        const prevOffset = (pageSV.value - 1) * PAGE_HEIGHT
+        scrollTo(listRef, 0, prevOffset, true)
+      }
+    },
+  )
+
+  const renderItem = ({ item, index }: { item: Video; index: number }) => (
+    <VideoItem video={item} isActive={index === activePage} />
+  )
+
+  return (
+    <Animated.View style={[ui.container, styles.center, animatedBg]}>
       <View style={styles.wrapper}>
-        <Animated.ScrollView
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
+        <Animated.FlatList
+          ref={listRef}
+          data={videos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          snapToInterval={PAGE_HEIGHT}
+          snapToAlignment="start"
+          disableIntervalMomentum
+          decelerationRate="fast"
+          showsVerticalScrollIndicator={false}
           onScroll={scrollHandler}
           scrollEventThrottle={16}
-          onMomentumScrollEnd={(e) => {
-            const page = Math.round(e.nativeEvent.contentOffset.x / PAGE_WIDTH)
-            setActivePage(page)
-          }}
-        >
-          {PAGE_ARRAY.map((color) => (
-            <View key={color} style={[styles.square, { backgroundColor: color }]} />
-          ))}
-        </Animated.ScrollView>
+          onMomentumScrollEnd={onMomentumScrollEnd}
+          windowSize={3}
+          maxToRenderPerBatch={3}
+          initialNumToRender={2}
+        />
+      </View>
 
-        <View style={styles.footerTab}>
-          {PAGE_ARRAY.map((color, i) => (
-            <View
-              key={color}
-              style={[
-                styles.littleTab,
-                { backgroundColor: i === activePage ? COLORS.star : COLORS.gray },
-              ]}
-            />
-          ))}
-        </View>
+      <View style={styles.footerTab}>
+        {videos.slice(0, PAGES_CYCLE_LENGTH).map((_, i) => (
+          <View
+            key={i}
+            style={[
+              styles.littleTab,
+              {
+                backgroundColor: i === activePage ? COLORS.star : COLORS.gray,
+              },
+            ]}
+          />
+        ))}
       </View>
     </Animated.View>
   )
 }
-
-const styles = css.create({
-  wrapper: {
-    width: PAGE_WIDTH,
-    height: PAGE_WIDTH,
-  },
-  square: {
-    width: PAGE_WIDTH,
-    height: PAGE_WIDTH,
-  },
-  footerTab: {
-    width: PAGE_WIDTH,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginTop: 10,
-  },
-  littleTab: {
-    height: 10,
-    width: 50,
-    borderRadius: 10,
-  },
-})

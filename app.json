@@ -12,14 +12,28 @@
       "backgroundColor": "#ffffff"
     },
     "android": {
-      "permissions": ["INTERNET", "ACCESS_NETWORK_STATE", "ACCESS_WIFI_STATE"],
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "ACCESS_WIFI_STATE",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "ACCESS_WIFI_STATE"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.reanimatedcourse"
     },
     "web": {
       "favicon": "./assets/icon.png"
+    },
+    "plugins": [
+      "expo-video"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.anonymous.reanimatedcourse"
     }
   }
 }
